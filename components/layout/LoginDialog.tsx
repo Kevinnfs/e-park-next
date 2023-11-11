@@ -9,7 +9,7 @@ import {
   Typography,
   Input,
 } from "@material-tailwind/react";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 
@@ -38,6 +38,7 @@ export default function LoginDialog({ open, toggleOpen }: LoginProps) {
       callbackUrl: "/",
       redirect: false,
     });
+    console.log("=======", resp);
     setLoading(false);
     if (resp.ok) {
       toast.update(id, {
@@ -46,6 +47,7 @@ export default function LoginDialog({ open, toggleOpen }: LoginProps) {
         isLoading: false,
         autoClose: 3000,
       });
+
       toggleOpen();
       return;
     }
@@ -128,6 +130,7 @@ export default function LoginDialog({ open, toggleOpen }: LoginProps) {
           </Card>
         </div>
       </Dialog>
+      <ToastContainer />
     </>
   );
 }

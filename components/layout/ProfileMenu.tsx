@@ -23,31 +23,34 @@ function ProfileMenu() {
           color="white"
           className="px-2 py-2 bg-opacity-0 shadow-none hover:shadow-none"
         >
-          <UserCircleIcon className="w-8 h-8" />
+          <UserCircleIcon color="black" className="w-8 h-8" />
         </Button>
       </MenuHandler>
       <MenuList>
         <Link href="/orders">
-          <MenuItem className="flex items-center gap-2">
-            <NewspaperIcon className="w-4 h-4" />
+          <MenuItem className="flex items-center gap-2 text-black">
+            <NewspaperIcon color="black" className="w-4 h-4 " />
             Orders
           </MenuItem>
         </Link>
         <Link href="/settings">
-          <MenuItem className="flex items-center gap-2">
-            <Cog6ToothIcon className="w-4 h-4" />
+          <MenuItem className="flex items-center gap-2 text-black">
+            <Cog6ToothIcon color="black" className="w-4 h-4" />
             Settings
           </MenuItem>
         </Link>
         <Link href="/wishlist">
-          <MenuItem className="flex items-center gap-2">
-            <HeartIcon className="w-4 h-4" />
+          <MenuItem className="flex items-center gap-2 text-black">
+            <HeartIcon color="black" className="w-4 h-4" />
             Wishlist
           </MenuItem>
         </Link>
         <hr className="my-3" />
-        <MenuItem className="flex items-center gap-2" onClick={() => signOut()}>
-          <ArrowLeftOnRectangleIcon className="w-4 h-4" />
+        <MenuItem
+          className="flex items-center gap-2 text-black"
+          onClick={() => signOut()}
+        >
+          <ArrowLeftOnRectangleIcon color="black" className="w-4 h-4" />
           Logout
         </MenuItem>
       </MenuList>

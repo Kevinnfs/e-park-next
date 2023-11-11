@@ -64,7 +64,6 @@ function Cart() {
       <Menu open={openMenu} handler={setOpenMenu} placement="bottom-end">
         <MenuHandler>
           <Button
-            color="white"
             variant="gradient"
             size="sm"
             className="px-2 py-2 bg-opacity-0 shadow-none hover:shadow-none"

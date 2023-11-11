@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "@material-tailwind/react";
 import { SessionProvider } from "next-auth/react";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   const [queryClient] = React.useState(() => new QueryClient());

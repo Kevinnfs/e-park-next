@@ -326,7 +326,7 @@ export default function NavbarComponent({
                   fill="none"
                   className="w-6 h-6"
                   viewBox="0 0 24 24"
-                  stroke="currentColor"
+                  stroke="black" // Ubah warna stroke menjadi hitam
                   strokeWidth={2}
                 >
                   <path
@@ -338,15 +338,16 @@ export default function NavbarComponent({
               ) : (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6"
                   fill="none"
-                  stroke="currentColor"
+                  className="w-6 h-6"
+                  viewBox="0 0 24 24"
+                  stroke="black" // Ubah warna stroke menjadi hitam
                   strokeWidth={2}
                 >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="M4 6h16M4 12h16M4 18h16"
+                    d="M6 18L18 6M6 6l12 12"
                   />
                 </svg>
               )}

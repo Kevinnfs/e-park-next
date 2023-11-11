@@ -4,6 +4,7 @@ import Layout from "@/components/layout/Layout";
 // import { withCommonServerSideProps } from "@/hoc/withCommonServerSideProps";
 import Api from "@/service/Api";
 import { CarouselSlide } from "@/components/marketing/CarouseSlide";
+import Picks from "@/components/marketing/Picks";
 
 // export const getServerSideProps = withCommonServerSideProps(async () => {
 //   const api = new Api();
@@ -26,7 +27,7 @@ const Index: NextPage = ({ categories, slider }: any) => (
   >
     <div className="flex flex-col gap-8 ">
       <CarouselSlide />
-      {/* <TrendingProduct /> */}
+      <Picks />
     </div>
   </Layout>
 );
