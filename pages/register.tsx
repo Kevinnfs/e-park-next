@@ -199,29 +199,45 @@ export default function Register({ categories }: CommonProps) {
                   </div>
                 )}
               </div>
-
               <div className="relative">
                 <Controller
                   control={control}
-                  name="role"
+                  name="nim"
                   defaultValue=""
                   render={(event) => (
-                    <Select label="Select Role" onChange={event.field.onChange}>
-                      <Option value="Admin">Admin</Option>
-                      <Option value="CS">CS</Option>
-                      <Option value="Customer">Customer</Option>
-                      <Option value="Finance">Finance</Option>
-                    </Select>
+                    <Input
+                      crossOrigin=""
+                      size="lg"
+                      label="NIM"
+                      onChange={event.field.onChange}
+                      value={event.field.value}
+                    />
                   )}
                   rules={{
-                    required: "Role field is required",
+                    required: "NIM field are required",
+                    validate: {
+                      isNim: (v: string) =>
+                        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+                        "NIM address must be a valid address",
+                      isAvailable: async (v: string) => {
+                        console.log("ini nim===", v);
+                        const api = new Api();
+                        api.url = "auth/email/check";
+                        api.body = { email: v };
+                        const resp: any = await api.call();
+                        if (resp?.data?.emailAvailable) {
+                          return true;
+                        }
+                        return "This email is not available.";
+                      },
+                    },
                   }}
                 />
-                {errors.role && (
+                {errors.email && (
                   <div className="absolute top-0 flex items-center h-full right-3">
                     <Tooltip
                       className="bg-red-700"
-                      content={errors.role.message}
+                      content={errors.email.message}
                       placement="left"
                     >
                       <ExclamationCircleIcon className="w-5 h-5 text-red-500" />
@@ -229,6 +245,8 @@ export default function Register({ categories }: CommonProps) {
                   </div>
                 )}
               </div>
+
+              
               <div className="relative">
                 <Controller
                   control={control}

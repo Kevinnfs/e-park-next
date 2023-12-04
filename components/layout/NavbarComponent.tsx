@@ -277,9 +277,9 @@ export default function NavbarComponent({
           <div className="text-center ">
             <Link href="/">
               <Image
-                src={require("../../assets/img/logo.png")}
+                src={require("../../assets/img/park.png")}
                 alt="Arfaaz Collection"
-                width={220}
+                width={50}
                 height={50}
                 className="w-[180px] md:w-auto h-240px"
               />
