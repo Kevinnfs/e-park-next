@@ -26,19 +26,19 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-// export const getServerSideProps = withCommonServerSideProps(
-//   async (ctx: any) => {
-//     const session = await getSession(ctx);
-//     if (session) {
-//       return {
-//         redirect: { destination: "/", permanent: false },
-//       };
-//     }
-//     return {
-//       props: {},
-//     };
-//   }
-// );
+export const getServerSideProps = withCommonServerSideProps(
+  async (ctx: any) => {
+    const session = await getSession(ctx);
+    if (session) {
+      return {
+        redirect: { destination: "/", permanent: false },
+      };
+    }
+    return {
+      props: {},
+    };
+  }
+);
 
 export default function Register({ categories }: CommonProps) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -85,7 +85,7 @@ export default function Register({ categories }: CommonProps) {
           isLoading: false,
         });
         const session = await getSession();
-        console.log(session,"dijsodfjsidfjsdiofjsdoif")
+        console.log(session, "dijsodfjsidfjsdiofjsdoif");
         setTimeout(async () => {
           await router.push("/");
           await signIn("credentials", {
@@ -103,7 +103,6 @@ export default function Register({ categories }: CommonProps) {
           autoClose: 3000,
           isLoading: false,
         });
-
       }
     } catch (error) {
       setRegistering(false);
@@ -118,9 +117,6 @@ export default function Register({ categories }: CommonProps) {
   const handleSignIn = () => {
     eventEmitter.emit("login");
   };
-
-  
-  
 
   return (
     <Layout title="Register - Arfaaz Collection" categories={categories}>
