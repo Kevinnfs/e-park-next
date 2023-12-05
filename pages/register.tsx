@@ -57,19 +57,27 @@ export default function Register({ categories }: CommonProps) {
 
   const onSubmit = async (data: any) => {
     console.log("data ================", data);
+    const newData = {
+      name: data.name,
+      email: data.email,
+      nim: data.nim,
+      password: data.password,
+      avatar: "",
+    };
     setRegistering(true);
     const id = toast.loading("Registering your account", {
       position: toast.POSITION.TOP_CENTER,
     });
-    data.urlForVerification = VerifyUrl;
     setEmail(data.email);
     setPassword(data.password);
     try {
       const api = new Api();
-      api.url = "auth/register";
-      api.body = data;
+      api.url = "/auth/register";
+      api.body = newData;
       const resp = await api.call();
-      console.log("ini adlaah resp", resp);
+      console.log("ini adlaah resp", api.url);
+      console.log("ini adlaah resp =====", resp);
+      console.log("wugduwhdiwuhdiwd", newData);
       if (resp?.meta?.code === 200) {
         reset();
         toast.update(id, {
@@ -124,7 +132,6 @@ export default function Register({ categories }: CommonProps) {
             className="max-w-screen-lg mt-8 mb-2 w-80 sm:w-96"
             onSubmit={handleSubmit(onSubmit)}
           >
-
             <div className="flex flex-col gap-6 mb-4">
               {/* ===== NAME ===== */}
               <div className="relative">
@@ -175,7 +182,7 @@ export default function Register({ categories }: CommonProps) {
                     required: "Email field are required",
                     // validate: {
                     //   isEmail: (v: string) =>
-                    //     /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+                    //     /^\w+([.-]?\w+)@\w+([.-]?\w+)(\.\w{2,3})+$/.test(v) ||
                     //     "Email address must be a valid address",
                     //   isAvailable: async (v: string) => {
                     //     console.log("ini email===", v);
@@ -223,7 +230,7 @@ export default function Register({ categories }: CommonProps) {
                     required: "NIM field are required",
                     // validate: {
                     //   isNim: (v: string) =>
-                    //     /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+                    //     /^\w+([.-]?\w+)@\w+([.-]?\w+)(\.\w{2,3})+$/.test(v) ||
                     //     "NIM address must be a valid address",
                     //   isAvailable: async (v: string) => {
                     //     console.log("ini nim===", v);
@@ -251,7 +258,7 @@ export default function Register({ categories }: CommonProps) {
                   </div>
                 )}
               </div>
-              
+
               {/* ===== PW ===== */}
               <div className="relative">
                 <Controller

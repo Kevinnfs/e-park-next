@@ -20,7 +20,7 @@ class Api {
 
     if (this.auth && this.token) {
       headers["Authorization"] = "Bearer " + this.token;
-      headers["Accept"] = "application/json";
+      // headers["Accept"] = "application/json";
     }
     const options: RequestInit = {
       method: "POST",
