@@ -54,19 +54,6 @@ export default function NavbarComponent({
   const [list, setList] = useState<ProductTypeSingle[]>([]);
   const containerRef = useRef<any>(null);
 
-  // useEffect(() => {
-  //   const call = async () => {
-  //     const api = new Api();
-  //     api.url = "products/search";
-  //     api.body = {
-  //       search,
-  //     };
-  //     const resp = await api.call();
-  //     setList(resp.data);
-  //   };
-  //   call();
-  // }, [search]);
-
   const toggleOpen = () => {
     setOpenLogin((prev: boolean) => !prev);
   };
@@ -91,23 +78,6 @@ export default function NavbarComponent({
   }, []);
 
   console.log("wojaojjoaj",session);
-
-  // const resend = async () => {
-  //   setSending(true);
-  //   const api = new Api();
-  //   api.url = "user/email/send-verification";
-  //   api.auth = true;
-  //   api.token = session.access_token;
-  //   api.body = {
-  //     urlForVerification: VerifyUrl,
-  //   };
-  //   await api.call();
-  //   setSending(false);
-  //   setCountdown(30);
-  //   toast.success("Email verification sent!", {
-  //     position: toast.POSITION.TOP_CENTER,
-  //   });
-  // };
 
   useEffect(() => {
     if (countdown > 0) {

@@ -26,19 +26,19 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-export const getServerSideProps = withCommonServerSideProps(
-  async (ctx: any) => {
-    const session = await getSession(ctx);
-    if (session) {
-      return {
-        redirect: { destination: "/", permanent: false },
-      };
-    }
-    return {
-      props: {},
-    };
-  }
-);
+// export const getServerSideProps = withCommonServerSideProps(
+//   async (ctx: any) => {
+//     const session = await getSession(ctx);
+//     if (session) {
+//       return {
+//         redirect: { destination: "/", permanent: false },
+//       };
+//     }
+//     return {
+//       props: {},
+//     };
+//   }
+// );
 
 export default function Register({ categories }: CommonProps) {
   const [searchTerm, setSearchTerm] = useState("");
