@@ -6,6 +6,9 @@ import Api from "@/service/Api";
 import { CarouselSlide } from "@/components/marketing/CarouseSlide";
 import Picks from "@/components/marketing/Picks";
 import { Profile } from "@/components/profile/Profile";
+import Listpengguna  from "./listpengguna";
+
+
 
 // export const getServerSideProps = withCommonServerSideProps(async () => {
 //   const api = new Api();
@@ -31,6 +34,7 @@ const Index: NextPage = ({ categories, slider }: any) => (
       {/* <Picks /> */}
     <Profile/>
     </div>
+    
   </Layout>
 );
 
