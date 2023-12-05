@@ -54,19 +54,6 @@ export default function NavbarComponent({
   const [list, setList] = useState<ProductTypeSingle[]>([]);
   const containerRef = useRef<any>(null);
 
-  useEffect(() => {
-    const call = async () => {
-      const api = new Api();
-      api.url = "products/search";
-      api.body = {
-        search,
-      };
-      const resp = await api.call();
-      setList(resp.data);
-    };
-    call();
-  }, [search]);
-
   const toggleOpen = () => {
     setOpenLogin((prev: boolean) => !prev);
   };
@@ -90,22 +77,7 @@ export default function NavbarComponent({
     );
   }, []);
 
-  const resend = async () => {
-    setSending(true);
-    const api = new Api();
-    api.url = "user/email/send-verification";
-    api.auth = true;
-    api.token = session.access_token;
-    api.body = {
-      urlForVerification: VerifyUrl,
-    };
-    await api.call();
-    setSending(false);
-    setCountdown(30);
-    toast.success("Email verification sent!", {
-      position: toast.POSITION.TOP_CENTER,
-    });
-  };
+  console.log("wojaojjoaj",session);
 
   useEffect(() => {
     if (countdown > 0) {
@@ -221,7 +193,7 @@ export default function NavbarComponent({
   );
   return (
     <div className="w-full">
-      <Dialog
+      {/* <Dialog
         size="xs"
         open={
           !noVerificationAlert &&
@@ -268,7 +240,7 @@ export default function NavbarComponent({
             <span>Logout</span>
           </Button>
         </DialogFooter>
-      </Dialog>
+      </Dialog> */}
       <Navbar
         shadow={false}
         className="sticky top-0 z-10 w-full px-4 py-2 rounded-none h-max  lg:py-4 max-w-none"

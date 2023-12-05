@@ -16,7 +16,7 @@ export const options: AuthOptions = {
           password: string;
         };
 
-        const response = await fetch(`${ApiUrl}auth/login`, {
+        const response = await fetch(`${ApiUrl}/auth/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -27,8 +27,11 @@ export const options: AuthOptions = {
           }),
         });
 
+        console.log("========================", response);
         const user = await response.json();
-        if (response.ok && user.meta.code === 200) {
+        console.log("Response:", response);
+        console.log("User:", user);
+        if (response.ok && user.statusCode === 200) {
           return user.data;
         } else {
           return null;
@@ -44,8 +47,9 @@ export const options: AuthOptions = {
       return { ...token, ...user };
     },
     async session({ session, token }: any) {
+      console.log("session", session);
       session.user = token;
-      const response = await fetch(`${ApiUrl}user/fetch`, {
+      const response = await fetch(`${ApiUrl}/user/fetch`, {
         method: "POST",
         headers: {
           // Be sure to include any necessary headers

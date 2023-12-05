@@ -54,23 +54,28 @@ export default function Register({ categories }: CommonProps) {
     control,
     formState: { errors },
   }: any = useForm({});
-
   const onSubmit = async (data: any) => {
     console.log("data ================", data);
+    const newData = {
+      name: data.name,
+      email: data.email,
+      nim: data.nim,
+      password: data.password,
+      avatar: "",
+    };
     setRegistering(true);
     const id = toast.loading("Registering your account", {
       position: toast.POSITION.TOP_CENTER,
     });
-    data.urlForVerification = VerifyUrl;
     setEmail(data.email);
     setPassword(data.password);
     try {
       const api = new Api();
-      api.url = "auth/register";
-      api.body = data;
+      api.url = "/auth/register";
+      api.body = newData;
       const resp = await api.call();
-      console.log("ini adlaah resp", resp);
-      if (resp?.meta?.code === 200) {
+      console.log("ini adlaah resp =====", resp);
+      if (resp?.statusCode === 200) {
         reset();
         toast.update(id, {
           render: "Your account registered.",
@@ -78,11 +83,12 @@ export default function Register({ categories }: CommonProps) {
           autoClose: 3000,
           isLoading: false,
         });
+
         setTimeout(async () => {
           await router.push("/");
           await signIn("credentials", {
-            email: email,
-            password: password,
+            email: data.email,
+            password: data.password,
             callbackUrl: "/",
             redirect: false,
           });
@@ -109,7 +115,7 @@ export default function Register({ categories }: CommonProps) {
   const handleSignIn = () => {
     eventEmitter.emit("login");
   };
-
+  console.log("email===", email);
   return (
     <Layout title="Register - Arfaaz Collection" categories={categories}>
       <div className="flex justify-center w-full">
@@ -125,6 +131,7 @@ export default function Register({ categories }: CommonProps) {
             onSubmit={handleSubmit(onSubmit)}
           >
             <div className="flex flex-col gap-6 mb-4">
+              {/* ===== NAME ===== */}
               <div className="relative">
                 <Controller
                   control={control}
@@ -153,6 +160,8 @@ export default function Register({ categories }: CommonProps) {
                   </div>
                 )}
               </div>
+
+              {/* ===== EMAIL ===== */}
               <div className="relative">
                 <Controller
                   control={control}
@@ -169,22 +178,22 @@ export default function Register({ categories }: CommonProps) {
                   )}
                   rules={{
                     required: "Email field are required",
-                    validate: {
-                      isEmail: (v: string) =>
-                        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-                        "Email address must be a valid address",
-                      isAvailable: async (v: string) => {
-                        console.log("ini email===", v);
-                        const api = new Api();
-                        api.url = "auth/email/check";
-                        api.body = { email: v };
-                        const resp: any = await api.call();
-                        if (resp?.data?.emailAvailable) {
-                          return true;
-                        }
-                        return "This email is not available.";
-                      },
-                    },
+                    // validate: {
+                    //   isEmail: (v: string) =>
+                    //     /^\w+([.-]?\w+)@\w+([.-]?\w+)(\.\w{2,3})+$/.test(v) ||
+                    //     "Email address must be a valid address",
+                    //   isAvailable: async (v: string) => {
+                    //     console.log("ini email===", v);
+                    //     const api = new Api();
+                    //     api.url = "auth/email/check";
+                    //     api.body = { email: v };
+                    //     const resp: any = await api.call();
+                    //     if (resp?.data?.emailAvailable) {
+                    //       return true;
+                    //     }
+                    //     return "This email is not available.";
+                    //   },
+                    // },
                   }}
                 />
                 {errors.email && (
@@ -199,6 +208,8 @@ export default function Register({ categories }: CommonProps) {
                   </div>
                 )}
               </div>
+
+              {/* ===== NIM ===== */}
               <div className="relative">
                 <Controller
                   control={control}
@@ -215,29 +226,29 @@ export default function Register({ categories }: CommonProps) {
                   )}
                   rules={{
                     required: "NIM field are required",
-                    validate: {
-                      isNim: (v: string) =>
-                        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-                        "NIM address must be a valid address",
-                      isAvailable: async (v: string) => {
-                        console.log("ini nim===", v);
-                        const api = new Api();
-                        api.url = "auth/email/check";
-                        api.body = { email: v };
-                        const resp: any = await api.call();
-                        if (resp?.data?.emailAvailable) {
-                          return true;
-                        }
-                        return "This email is not available.";
-                      },
-                    },
+                    // validate: {
+                    //   isNim: (v: string) =>
+                    //     /^\w+([.-]?\w+)@\w+([.-]?\w+)(\.\w{2,3})+$/.test(v) ||
+                    //     "NIM address must be a valid address",
+                    //   isAvailable: async (v: string) => {
+                    //     console.log("ini nim===", v);
+                    //     const api = new Api();
+                    //     api.url = "auth/email/check";
+                    //     api.body = { email: v };
+                    //     const resp: any = await api.call();
+                    //     if (resp?.data?.emailAvailable) {
+                    //       return true;
+                    //     }
+                    //     return "This email is not available.";
+                    //   },
+                    // },
                   }}
                 />
-                {errors.email && (
+                {errors.nim && (
                   <div className="absolute top-0 flex items-center h-full right-3">
                     <Tooltip
                       className="bg-red-700"
-                      content={errors.email.message}
+                      content={errors.nim.message}
                       placement="left"
                     >
                       <ExclamationCircleIcon className="w-5 h-5 text-red-500" />
@@ -246,7 +257,7 @@ export default function Register({ categories }: CommonProps) {
                 )}
               </div>
 
-              
+              {/* ===== PW ===== */}
               <div className="relative">
                 <Controller
                   control={control}
