@@ -54,7 +54,6 @@ export default function Register({ categories }: CommonProps) {
     control,
     formState: { errors },
   }: any = useForm({});
-
   const onSubmit = async (data: any) => {
     console.log("data ================", data);
     const newData = {
@@ -84,13 +83,12 @@ export default function Register({ categories }: CommonProps) {
           autoClose: 3000,
           isLoading: false,
         });
-        const session = await getSession();
-        console.log(session, "dijsodfjsidfjsdiofjsdoif");
+
         setTimeout(async () => {
           await router.push("/");
           await signIn("credentials", {
-            email: email,
-            password: password,
+            email: data.email,
+            password: data.password,
             callbackUrl: "/",
             redirect: false,
           });
@@ -117,7 +115,7 @@ export default function Register({ categories }: CommonProps) {
   const handleSignIn = () => {
     eventEmitter.emit("login");
   };
-
+  console.log("email===", email);
   return (
     <Layout title="Register - Arfaaz Collection" categories={categories}>
       <div className="flex justify-center w-full">
