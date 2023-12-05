@@ -8,8 +8,13 @@ class Api {
   public header: any = {};
   public body: any = {};
 
+  constructor() {
+    this.url = ""; // Atau set nilai default yang sesuai
+  }
+
   public call = async () => {
     const url = ApiUrl + this.url;
+    console.log("POPKPOWJPONPFOWBFPIFHPWIHFPIFWHPIWDHDP", url);
     const headers = {
       ...this.header,
       "Content-Type":

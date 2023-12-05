@@ -57,19 +57,26 @@ export default function Register({ categories }: CommonProps) {
 
   const onSubmit = async (data: any) => {
     console.log("data ================", data);
+    const newData = {
+      name : data.name,
+      email: data.email,
+      nim: data.nim,
+      password : data.password,
+      avatar: "",
+    }
     setRegistering(true);
     const id = toast.loading("Registering your account", {
       position: toast.POSITION.TOP_CENTER,
     });
-    data.urlForVerification = VerifyUrl;
     setEmail(data.email);
     setPassword(data.password);
     try {
       const api = new Api();
       api.url = "auth/register";
-      api.body = data;
+      api.body = newData;
       const resp = await api.call();
-      console.log("ini adlaah resp", resp);
+      console.log("ini adlaah resp",api.url );
+      console.log("wugduwhdiwuhdiwd", newData)
       if (resp?.meta?.code === 200) {
         reset();
         toast.update(id, {
@@ -95,6 +102,7 @@ export default function Register({ categories }: CommonProps) {
           autoClose: 3000,
           isLoading: false,
         });
+
       }
     } catch (error) {
       setRegistering(false);
@@ -109,6 +117,7 @@ export default function Register({ categories }: CommonProps) {
   const handleSignIn = () => {
     eventEmitter.emit("login");
   };
+  
 
   return (
     <Layout title="Register - Arfaaz Collection" categories={categories}>
