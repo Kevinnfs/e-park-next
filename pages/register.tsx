@@ -55,7 +55,6 @@ export default function Register({ categories }: CommonProps) {
     formState: { errors },
   }: any = useForm({});
   const onSubmit = async (data: any) => {
-    console.log("data ================", data);
     const newData = {
       name: data.name,
       email: data.email,
@@ -74,7 +73,6 @@ export default function Register({ categories }: CommonProps) {
       api.url = "/auth/register";
       api.body = newData;
       const resp = await api.call();
-      console.log("ini adlaah resp =====", resp);
       if (resp?.statusCode === 200) {
         reset();
         toast.update(id, {
@@ -115,11 +113,10 @@ export default function Register({ categories }: CommonProps) {
   const handleSignIn = () => {
     eventEmitter.emit("login");
   };
-  console.log("email===", email);
   return (
     <Layout title="Register - Arfaaz Collection" categories={categories}>
-      <div className="flex justify-center w-full">
-        <Card color="transparent" shadow={false}>
+      <div className="flex justify-center w-full py-4">
+        <Card color="white" shadow={false} className="px-6 py-4">
           <Typography variant="h4" color="blue-gray">
             Sign Up
           </Typography>
@@ -183,7 +180,6 @@ export default function Register({ categories }: CommonProps) {
                     //     /^\w+([.-]?\w+)@\w+([.-]?\w+)(\.\w{2,3})+$/.test(v) ||
                     //     "Email address must be a valid address",
                     //   isAvailable: async (v: string) => {
-                    //     console.log("ini email===", v);
                     //     const api = new Api();
                     //     api.url = "auth/email/check";
                     //     api.body = { email: v };
@@ -231,7 +227,6 @@ export default function Register({ categories }: CommonProps) {
                     //     /^\w+([.-]?\w+)@\w+([.-]?\w+)(\.\w{2,3})+$/.test(v) ||
                     //     "NIM address must be a valid address",
                     //   isAvailable: async (v: string) => {
-                    //     console.log("ini nim===", v);
                     //     const api = new Api();
                     //     api.url = "auth/email/check";
                     //     api.body = { email: v };

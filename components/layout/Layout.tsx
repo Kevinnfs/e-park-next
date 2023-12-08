@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { ToastContainer } from "react-toastify";
 import NavbarComponent from "./NavbarComponent";
 import { CategoryType } from "@/types/common";
-import { Footer } from "./Footer";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -70,7 +69,7 @@ function layout({
           categories={categories}
           showSearchBar={showSearchBar}
         >
-          <div className="">{children}</div>
+          <div className="bg-gray-200">{children}</div>
         </NavbarComponent>
       </main>
     </>

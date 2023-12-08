@@ -10,7 +10,6 @@ export const withCommonServerSideProps =
   async (ctx: GetServerSidePropsContext) => {
     // Get common server-side props
     const commonProps: any = await getCommonServerSideProps();
-    console.log("Common Props:", commonProps);
     // If common props indicate not found, immediately return
     if (commonProps?.notFound) {
       return {
@@ -27,7 +26,6 @@ export const withCommonServerSideProps =
 
     // Get specific page server-side props if defined
     const pageProps: any = await getPageServerSideProps(ctx);
-    console.log("Page Props:", pageProps);
     // If page props indicate not found, immediately return
     if (pageProps?.notFound) {
       return {

@@ -14,7 +14,6 @@ class Api {
 
   public call = async () => {
     const url = ApiUrl + this.url;
-    console.log("POPKPOWJPONPFOWBFPIFHPWIHFPIFWHPIWDHDP", url);
     const headers = {
       ...this.header,
       "Content-Type":

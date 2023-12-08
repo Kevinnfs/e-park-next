@@ -1,37 +1,51 @@
 import { NextPage } from "next";
 import Layout from "@/components/layout/Layout";
-// import TrendingProduct from "@/components/home/TrendingProduct";
-// import { withCommonServerSideProps } from "@/hoc/withCommonServerSideProps";
 import Api from "@/service/Api";
 import { CarouselSlide } from "@/components/marketing/CarouseSlide";
 import Picks from "@/components/marketing/Picks";
 import { Profile } from "@/components/profile/Profile";
+import { DefaultTable } from "@/components/profile/Table";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
-// export const getServerSideProps = withCommonServerSideProps(async () => {
-//   const api = new Api();
-//   api.url = "slider/get";
-//   const resp = await api.call();
-//   const slider = resp.data;
+const Index: NextPage = ({ categories, slider }: any) => {
+  const { data: session, status }: any = useSession();
+  const [profile, setProfile] = useState<any>();
 
-//   return {
-//     props: {
-//       slider,
-//     },
-//   };
-// });
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const api = new Api();
+        api.url = "/auth/profile";
+        api.auth = true;
+        api.token = session?.accessToken;
+        const resp = await api.call();
+        setProfile(resp.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-const Index: NextPage = ({ categories, slider }: any) => (
-  <Layout
-    title="The Creative Kit - Koleksi terbaik baju muslim."
-    categories={categories}
-    showSearchBar={true}
-  >
-    <div className="flex flex-col gap-8 ">
-      {/* <CarouselSlide /> */}
-      {/* <Picks /> */}
-    <Profile/>
-    </div>
-  </Layout>
-);
+    fetchData();
+  }, [session?.accessToken, profile]);
+  // console.log(profile);
+
+  return (
+    <Layout
+      title="The Creative Kit - Koleksi terbaik baju muslim."
+      categories={categories}
+      // showSearchBar={true}
+    >
+      <div className="flex flex-col gap-8">
+        {/* <CarouselSlide /> */}
+        {/* <Picks /> */}
+        <Profile profile={profile} />
+        {profile?.nocard && profile.nocard.length == !0 ? (
+          <DefaultTable profile={profile} />
+        ) : null}
+      </div>
+    </Layout>
+  );
+};
 
 export default Index;

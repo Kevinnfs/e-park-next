@@ -20,7 +20,6 @@ import { Footer } from "./Footer";
 import { signOut, useSession } from "next-auth/react";
 import LoginDialog from "./LoginDialog";
 
-import Cart from "./Cart";
 import ProfileMenu from "./ProfileMenu";
 import { VerifyUrl } from "@/config/Config";
 import { toast } from "react-toastify";
@@ -29,6 +28,7 @@ import Image from "next/image";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import Api from "@/service/Api";
 import { CategoryType, ProductTypeSingle } from "@/types/common";
+import { VerificatonCard } from "../modal/VerificationCard";
 
 interface NavbarProps {
   noVerificationAlert?: boolean;
@@ -53,6 +53,29 @@ export default function NavbarComponent({
   const [search, setSearch] = useState<string>("");
   const [list, setList] = useState<ProductTypeSingle[]>([]);
   const containerRef = useRef<any>(null);
+  const [profile, setProfile] = useState<any>();
+  const [openVerif, setOpenVerif] = useState(false);
+
+  const toggleOpenVerif = () => {
+    setOpenVerif((prev: boolean) => !prev);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const api = new Api();
+        api.url = "/auth/profile";
+        api.auth = true;
+        api.token = session?.accessToken;
+        const resp = await api.call();
+        setProfile(resp.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [session?.accessToken]);
 
   const toggleOpen = () => {
     setOpenLogin((prev: boolean) => !prev);
@@ -76,8 +99,6 @@ export default function NavbarComponent({
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
-
-  console.log("wojaojjoaj",session);
 
   useEffect(() => {
     if (countdown > 0) {
@@ -193,54 +214,6 @@ export default function NavbarComponent({
   );
   return (
     <div className="w-full">
-      {/* <Dialog
-        size="xs"
-        open={
-          !noVerificationAlert &&
-          session !== null &&
-          session?.user?.emailVerifiedAt === null &&
-          !loading
-        }
-        handler={() => {}}
-      >
-        <DialogHeader>Verify your account!</DialogHeader>
-        <DialogBody className="font-normal">
-          <div>
-            We have send you an email to your account, please verify your email
-            before using this website by clicking link we have send to you. If
-            you not receiving any email, please click resend button below.
-            {countdown > 0 && (
-              <Typography
-                className="mt-8 font-normal"
-                variant="small"
-                color="red"
-              >
-                You can resend new email verification in {countdown} second
-                {countdown > 1 && "s"}.
-              </Typography>
-            )}
-          </div>
-        </DialogBody>
-        <DialogFooter>
-          <Button
-            disabled={sending || countdown > 0}
-            variant="gradient"
-            color="gray"
-            onClick={() => resend()}
-            className="flex items-center gap-3 mr-1"
-          >
-            {sending && (
-              <span>
-                <Spinner className="w-3 h-3" />
-              </span>
-            )}
-            <span>Resend</span>
-          </Button>
-          <Button variant="gradient" color="red" onClick={() => signOut()}>
-            <span>Logout</span>
-          </Button>
-        </DialogFooter>
-      </Dialog> */}
       <Navbar
         shadow={false}
         className="sticky top-0 z-10 w-full px-4 py-2 rounded-none h-max  lg:py-4 max-w-none"
@@ -262,7 +235,12 @@ export default function NavbarComponent({
             <div className="hidden mr-4 lg:block ">{navList}</div>
             {session && !loading ? (
               <>
-                <Cart />
+                {profile?.nocard && profile.nocard.length === 0 ? (
+                  <Button onClick={toggleOpenVerif} size="sm" color="green">
+                    Verifikasi Kartu
+                  </Button>
+                ) : null}
+
                 <ProfileMenu />
               </>
             ) : (
@@ -328,10 +306,15 @@ export default function NavbarComponent({
         </div>
         <Collapse open={openNav}>{navList}</Collapse>
       </Navbar>
-      <div className=" w-screen">
+      <div className="w-full py-8">
         {children}
         <Footer />
       </div>
+      <VerificatonCard
+        open={openVerif}
+        toggleOpenVerif={toggleOpenVerif}
+        profile={profile}
+      />
     </div>
   );
 }

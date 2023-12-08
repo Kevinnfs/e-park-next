@@ -27,24 +27,24 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList>
-        <Link href="/orders">
+        {/* <Link href="/orders">
           <MenuItem className="flex items-center gap-2 text-black">
             <NewspaperIcon color="black" className="w-4 h-4 " />
             Orders
           </MenuItem>
-        </Link>
+        </Link> */}
         <Link href="/settings">
           <MenuItem className="flex items-center gap-2 text-black">
             <Cog6ToothIcon color="black" className="w-4 h-4" />
             Settings
           </MenuItem>
         </Link>
-        <Link href="/wishlist">
+        {/* <Link href="/wishlist">
           <MenuItem className="flex items-center gap-2 text-black">
             <HeartIcon color="black" className="w-4 h-4" />
             Wishlist
           </MenuItem>
-        </Link>
+        </Link> */}
         <hr className="my-3" />
         <MenuItem
           className="flex items-center gap-2 text-black"

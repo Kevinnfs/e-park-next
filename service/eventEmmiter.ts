@@ -35,7 +35,6 @@ export const eventEmitter = new EventEmitter();
 // typescript
 
 // eventEmitter.on('sayHello', (name: string) => {
-//   console.log(`Hello, ${name}!`);
 // });
 
 //     Emitting an event:
@@ -53,7 +52,6 @@ export const eventEmitter = new EventEmitter();
 // typescript
 
 // const myListener = (name: string) => {
-//   console.log(`Goodbye, ${name}!`);
 // };
 
 // eventEmitter.on('sayGoodbye', myListener);
@@ -68,7 +66,6 @@ export const eventEmitter = new EventEmitter();
 // typescript
 
 // eventEmitter.on('userInfo', (user: { id: number, name: string }) => {
-//   console.log(`User ID: ${user.id}, User Name: ${user.name}`);
 // });
 
 // eventEmitter.emit('userInfo', { id: 1, name: 'Charlie' });  // Console logs: User ID: 1, User Name: Charlie

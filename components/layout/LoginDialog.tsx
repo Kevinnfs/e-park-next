@@ -38,7 +38,6 @@ export default function LoginDialog({ open, toggleOpen }: LoginProps) {
       callbackUrl: "/",
       redirect: false,
     });
-    console.log("=======", resp);
     setLoading(false);
     if (resp.ok) {
       toast.update(id, {

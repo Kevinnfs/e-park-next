@@ -27,10 +27,7 @@ export const options: AuthOptions = {
           }),
         });
 
-        console.log("========================", response);
         const user = await response.json();
-        console.log("Response:", response);
-        console.log("User:", user);
         if (response.ok && user.statusCode === 200) {
           return user.data;
         } else {
@@ -47,7 +44,6 @@ export const options: AuthOptions = {
       return { ...token, ...user };
     },
     async session({ session, token }: any) {
-      console.log("session", session);
       session.user = token;
       const response = await fetch(`${ApiUrl}/user/fetch`, {
         method: "POST",

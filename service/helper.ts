@@ -9,20 +9,4 @@ function formatRupiah(amount: number): string {
   return formatter.format(amount);
 }
 
-function updateInCartQty(
-  variant: StockType[],
-  stockId: number,
-  newQty: number
-): StockType[] {
-  return variant.map((item) => {
-    if (item.key === stockId) {
-      return {
-        ...item,
-        inCartQty: newQty,
-      };
-    }
-    return item;
-  });
-}
-
-export { formatRupiah, updateInCartQty };
+export { formatRupiah };
